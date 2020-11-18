@@ -93,41 +93,51 @@ def second_hand():
     else:
         print("Sorry, something went wrong")
 
-def isBust():
-    total_value = 0
+def isBust_player():
+    isTuple = 0
+    # First I check if there are some tuples
     for i in range(len(player_hand)):
-        if (player_hand[i])[2] is not tuple:
-            total_value += (player_hand[i])[2]
-            if total_value > 21:
-                print("BUST!")
-                print("A new game will start...")
-            else:
-                pass
-        else:
-            (player_hand[i])[2] = 1
-            total_value += 1
-            if total_value > 21:
-                print("BUST!")
-                print("A new game will start...")
-            else:
-                pass
-            (player_hand[i])[2] = 11
-            total_value -= 1
-            total_value += 11
-            if total_value > 21:
-                print("BUST!")
-                print("A new game will start...")
+        if (player_hand[i])[2] is tuple:
+           isTuple += 1
+    if isTuple > 0:
+        total_value = 0
+        for i in range(len(player_hand)):
+        print("There is a tuple")
+    else:
+        print("There is no tuple")
+
+
+        #     total_value += (player_hand[i])[2]
+        #     if total_value > 21:
+        #         print("BUST!")
+        #         print("A new game will start...")
+        #     else:
+        #         pass
+        # else:
+        #     (player_hand[i])[2] = 1
+        #     total_value += 1
+        #     if total_value > 21:
+        #         print("BUST!")
+        #         print("A new game will start...")
+        #     else:
+        #         pass
+        #     (player_hand[i])[2] = 11
+        #     total_value -= 1
+        #     total_value += 11
+        #     if total_value > 21:
+        #         print("BUST!")
+        #         print("A new game will start...")
             
-splash_screen()
-time.sleep(2)
-user_name = ask_name()
-welcome_player()
-time.sleep(2)
+# splash_screen()
+# time.sleep(2)
+# user_name = ask_name()
+# welcome_player()
+# time.sleep(2)
 first_hand()
-time.sleep(2)
+# time.sleep(2)
         
 stand_or_hit()
-print(len(full_deck))
+print(f"Length of deck is {len(full_deck)}")
 second_hand()
-print(len(full_deck))
-isBust()
+print(f"Length of deck is {len(full_deck)}")
+isBust_player()
