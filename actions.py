@@ -8,7 +8,8 @@ from splash_screen import *
 
 # Full deck and cards that are played
 
-full_deck = generate_deck()
+deck_list = generate_deck_list()
+deck_dict = generate_deck_dict()
 played_cards = [] 
 player_hand = []
 dealer_hand = []
@@ -32,16 +33,16 @@ def first_hand():
 
 	for i in range(2):
 		# One random card to the player
-		card_user = random.choice(full_deck)
-		full_deck.remove(card_user)
+		card_user = random.choice(deck_list)
+		deck_list.remove(card_user)
 		player_hand.append(card_user)
 		# Adding to played cards just in case it's useful in the future
 		played_cards.append(card_user)
 		
 
 		# One random card to the dealer
-		card_dealer = random.choice(full_deck)
-		full_deck.remove(card_dealer)
+		card_dealer = random.choice(deck_list)
+		deck_list.remove(card_dealer)
 		dealer_hand.append(card_dealer)
 		# Adding to played cards just in case it's useful in the future
 		played_cards.append(card_user)
@@ -74,15 +75,15 @@ def second_hand():
     """Function to play second hand, when player can either receive another card or stand."""
     
     if stand_or_hit:
-        card_user = random.choice(full_deck)
-        full_deck.remove(card_user)
+        card_user = random.choice(deck_list)
+        deck_list.remove(card_user)
         player_hand.append(card_user)
         # Just in case I need it in the future
         played_cards.append(card_user)
         print(f"You have received a {cardname_fromTuple(player_hand, player_hand[2])}.\n")
 
-        card_dealer = random.choice(full_deck)
-        full_deck.remove(card_dealer)
+        card_dealer = random.choice(deck_list)
+        deck_list.remove(card_dealer)
         dealer_hand.append(card_dealer)
         # Just in case I need it in the future
         played_cards.append(card_dealer)
@@ -132,14 +133,14 @@ def isBust_player():
 # user_name = ask_name()
 # welcome_player()
 # time.sleep(2)
-first_hand()
-# time.sleep(2)  
-stand_or_hit()
+# first_hand()
+# # time.sleep(2)  
+# stand_or_hit()
 
-##print(f"Player hand: {player_hand}")
-##print(f"Length of deck is {len(full_deck)}")
-second_hand()
-##print(f"Length of deck is {len(full_deck)}")
-##print(f"Player hand: {player_hand}")
+# ##print(f"Player hand: {player_hand}")
+# ##print(f"Length of deck is {len(deck_list)}")
+# second_hand()
+# ##print(f"Length of deck is {len(deck_list)}")
+# ##print(f"Player hand: {player_hand}")
 
-isBust_player()
+# isBust_player()

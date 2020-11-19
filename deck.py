@@ -25,9 +25,32 @@ card_suits = {
 
 discarted_carts = []
 
-def generate_deck():
+def generate_deck_dict():
+    list = []
+    # This list first to create the dictionary
+    for num in range(0,4):
+        for i in range(1, 14):
+            suit = num
+            number = i
+            value = 0 
+            if i == 1:
+                # This used to be a tuple before
+                value = (1)
+            elif i > 10:
+                value = 10
+            else:
+                value = i
+            list.append((suit, number, value))
+    dict = {}
+    for card in list:
+        # Use another function to generate all the keys
+        dict[cardname_fromTuple(list, card)] = card
+    return dict
+
+
+def generate_deck_list():
 	"""Function to generate a whole deck of cards as list"""
-	deck_list = []
+	list = []
 	for num in range(0,4):
 		for i in range(1, 14):
 			suit = num
@@ -40,8 +63,11 @@ def generate_deck():
 				value = 10
 			else:
 				value = i
-			deck_list.append((suit, number, value))
-	return deck_list
+			list.append((suit, number, value))
+	return list
+
+
+
 
 
 def cardname_fromIndex(list, index):
@@ -84,3 +110,9 @@ def remove_randomCard(card_deck, discarted_deck):
 # remove_randomCard(full_deck, discarted_carts)
 
 # print(len(full_deck))
+
+
+
+
+full_deck = generate_deck_list()
+deck_dict = generate_deck_dict()
