@@ -1,7 +1,7 @@
 import random
 
 card_names = {
-	1: "Ass",
+	1: "Ace",
 	2: "Two",
 	3: "Three",
 	4: "Four",
@@ -34,7 +34,8 @@ def generate_deck():
 			number = i
 			value = 0 
 			if i == 1:
-				value = (1, 11)
+				# This used to be a tuple before
+				value = (1)
 			elif i > 10:
 				value = 10
 			else:

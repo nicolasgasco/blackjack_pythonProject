@@ -50,7 +50,7 @@ def first_hand():
 		f" {cardname_fromTuple(player_hand, player_hand[0])} and "
 		f"{cardname_fromTuple(player_hand, player_hand[1])}.\n")
 
-	time.sleep(2)
+	# time.sleep(2)
 
 	print(f"The dealer has one covered card and a "
 		f"{cardname_fromTuple(dealer_hand, dealer_hand[0])}.\n")
@@ -94,39 +94,38 @@ def second_hand():
         print("Sorry, something went wrong")
 
 def isBust_player():
-    isTuple = 0
-    # First I check if there are some tuples
-    for i in range(len(player_hand)):
-        if (player_hand[i])[2] is tuple:
-           isTuple += 1
-    if isTuple > 0:
-        total_value = 0
-        for i in range(len(player_hand)):
-        print("There is a tuple")
-    else:
-        print("There is no tuple")
+      # First I check if there are some 1s
+      total_value = 0
+      value_1 = 0
+      value_11 = 0
+      for suit, number, value in player_hand:
+         # Case 1: there are some aces with double values
+         if value == 1:
+            # Let's put all the extra values asides
+            value_1 += 1
+            value_11 += 11
+         # Case 2: there are no aces
+         else:
+            total_value += value
+
+      total_value1 = total_value + value_1
+      total_value11 = total_value + value_11
+      # This is the regular case, without double values
+      if value_1 == 0 and value_11 == 0:
+         if total_value > 21:
+            print("BUST!")
+            print(f"Bust_norm. Your sum is {total_value}! A new game will start...")
+         else:
+            print(f"Nobust_norm. You're sum is {total_value}. You're not bust!")
+      # This is when double values are present
+      elif value_1 > 0 and value_11 > 0:
+         if total_value11 <= 21:
+            print(f"NobustDou1. Your sum is either {total_value1} or {total_value11}.")
+         elif (total_value + value_11) > 21:
+            print(f"NobusDou2. You're sum is {total_value1}. You're not bust!")
+      
 
 
-        #     total_value += (player_hand[i])[2]
-        #     if total_value > 21:
-        #         print("BUST!")
-        #         print("A new game will start...")
-        #     else:
-        #         pass
-        # else:
-        #     (player_hand[i])[2] = 1
-        #     total_value += 1
-        #     if total_value > 21:
-        #         print("BUST!")
-        #         print("A new game will start...")
-        #     else:
-        #         pass
-        #     (player_hand[i])[2] = 11
-        #     total_value -= 1
-        #     total_value += 11
-        #     if total_value > 21:
-        #         print("BUST!")
-        #         print("A new game will start...")
             
 # splash_screen()
 # time.sleep(2)
@@ -134,10 +133,13 @@ def isBust_player():
 # welcome_player()
 # time.sleep(2)
 first_hand()
-# time.sleep(2)
-        
+# time.sleep(2)  
 stand_or_hit()
-print(f"Length of deck is {len(full_deck)}")
+
+##print(f"Player hand: {player_hand}")
+##print(f"Length of deck is {len(full_deck)}")
 second_hand()
-print(f"Length of deck is {len(full_deck)}")
+##print(f"Length of deck is {len(full_deck)}")
+##print(f"Player hand: {player_hand}")
+
 isBust_player()
