@@ -1,0 +1,21 @@
+# 1. Generate a deck of 52 cards
+I originally did this with a list of tuples ((suit, number, value)), but I now upgraded to dictionary
+
+# 2. Deal two cards to the player (face up) and two to the dealer (only one face up).
+Did it with first hand.
+
+# 3a. Player stands: you keep the two cards and dealer can keep playing.
+	3a1: Dealer stands.
+	3a2: Dealer hits.
+		Outcome: you win, dealer wins, PUSH
+# 3b. Player hits: you get another card
+	3b1: Bust!
+		Dealer wins
+	3b2: You get another card and is compared to those of the dealer
+		3b2-a: You can get another card. (Up to 5-6)
+			Outcome: you win, dealer wins, PUSH
+
+
+
+Cards given --> Player hit or stand --> if hit: received cards --> Busted or not -> if not: who wins
+					if stand: no more cards --> Dealer buster or not --> if not: who wins
