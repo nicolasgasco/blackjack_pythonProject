@@ -48,22 +48,22 @@ class Card:
 		"""Returns full card name"""
 		return f"{self.determine_number()} of {self.determine_suit()}"
 
-
-
-
-spade_9 = Card(3, 9, 9)
-print(spade_9.determine_number())
-print(spade_9.determine_suit())
-print(spade_9.card_fullname())
-
-suit_spade = Suit(3)
-print(suit_spade.total_suit())
-
-deck_poker = Deck()
-print(deck_poker.total_deck())
-
-print(deck_poker.total_deck())
-
-spade_allsuit = []
+##
+##
+##
+##spade_9 = Card(3, 9, 9)
+##print(spade_9.determine_number())
+##print(spade_9.determine_suit())
+##print(spade_9.card_fullname())
+##
+##suit_spade = Suit(3)
+##print(suit_spade.total_suit())
+##
+##deck_poker = Deck()
+##print(deck_poker.total_deck())
+##
+##print(deck_poker.total_deck())
+##
+##spade_allsuit = []
 
 
