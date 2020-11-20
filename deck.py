@@ -44,7 +44,10 @@ def generate_deck_dict():
     dict = {}
     for card in list:
         # Use another function to generate all the keys
-        dict[cardname_fromTuple(list, card)] = card
+        # dict[cardname_fromTuple(list, card)] = card
+        suit = card_suits.get(card[0])
+        number = card_names.get(card[1])
+        dict[f"{number} of {suit}"] = card
     return dict
 
 
@@ -73,13 +76,12 @@ def generate_deck_list():
 def cardname_fromIndex(list, index):
 	"""Funcion to print a card name when list name and index are known.
 	Asks for list name and list index."""
-
 	suit = card_suits.get((list[index])[0])
 	number = card_names.get((list[index])[1])
 	return f"{number} of {suit}"
 	
 def print_deck(deck_name):
-	for i in range(0, len(deck_name)):
+	for i in range(len(deck_name)):
 		cardname_fromIndex(deck_name, i)
 
 
@@ -114,5 +116,4 @@ def remove_randomCard(card_deck, discarted_deck):
 
 
 
-full_deck = generate_deck_list()
 deck_dict = generate_deck_dict()
