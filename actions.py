@@ -22,7 +22,7 @@ def welcome(user_name):
     	" but it's a lot of fun. You don't need to place a bet to play.\n")
    print("Let's start...\n")
 
-def first_hand(user_name, hand_cards):
+def first_hand(user_name, player_hand, dealer_hand):
 	"""Function to deal the first hand of a Blackjack round.
 	Player gets dealt two cards face up, dealer only one face up."""
 
@@ -42,7 +42,6 @@ def first_hand(user_name, hand_cards):
 		# Adding to played cards just in case it's useful in the future
 		played_cards.append(card_user)
 
-	print("Round One\n")
 	print(f"{user_name.title()}, you have been dealt..."
 		f" {cardname_fromTuple(player_hand, player_hand[0])} and "
 		f"{cardname_fromTuple(player_hand, player_hand[1])}.\n")
@@ -51,8 +50,15 @@ def first_hand(user_name, hand_cards):
 
 	print(f"The dealer has one covered card and a "
 		f"{cardname_fromTuple(dealer_hand, dealer_hand[0])}.\n")
+def isNatural(card_hand):
+    """Function to check if two first cards are a natural (10 plus ace)"""
+    if (card_hand[0])[2] == 1 and (card_hand[1])[2] == 10:
+        return True
+    elif (card_hand[0])[2] == 10 and (card_hand[1])[2] == 1:
+        return True
+    else:
+        return False
 
-	isBlackJack(hand_cards)
 
 def stand_or_hit():
    """Function used to prompt the user either to stand or hit"""
@@ -73,15 +79,14 @@ def if_stand():
 
    print(f"Belzebù")
 
-def if_hit():
+def if_hit(player_hand):
    """Function to play second hand, when player can either receive another card or stand."""
    card_user = random.choice(deck_list)
    deck_list.remove(card_user)
    player_hand.append(card_user)
    # Just in case I need it in the future
    played_cards.append(card_user)
-   print(f"You have received a {cardname_fromTuple(player_hand, player_hand[2])}.\n")
-   isBust(player_hand)
+   print(f"You have received a {cardname_fromTuple(player_hand, player_hand[-1])}.\n")
 
 ##        card_dealer = random.choice(deck_list)
 ##        deck_list.remove(card_dealer)
@@ -111,15 +116,23 @@ def isBust(hand_cards):
       if value_1 == 0 and value_11 == 0:
          if total_value > 21:
             print("BUST!")
-            print(f"Bust_norm. Your sum is {total_value}! A new game will start...")
+            print(f"Bust_norm. Your sum is {total_value}. BUST!")
+            return True
          else:
-            print(f"Nobust_norm. You're sum is {total_value}. You're not bust!")
+            print(f"Nobust_norm. You're sum is {total_value}.")
+            return False
       # This is when double values are present
       elif value_1 > 0 and value_11 > 0:
          if total_value11 <= 21:
             print(f"NobustDou1. Your sum is either {total_value1} or {total_value11}.")
-         elif (total_value + value_11) > 21:
-            print(f"NobusDou2. You're sum is {total_value1}. You're not bust!")
+            return False
+         elif total_value11 > 21 and total_value1 > 21:
+            print(f"Bustdou2. BUST! Your sum is {total_value1}.")
+            return True
+         elif total_value11 > 21 and total_value1 < 21:
+            print(f"NobusDou2. You're sum is {total_value1}.")
+            return False
+   
 
 def isBlackJack(hand_cards):
    total_value = 0
@@ -144,21 +157,3 @@ def isBlackJack(hand_cards):
    else:
       return False
 
-
-# splash_screen()
-# time.sleep(2)
-# user_name = ask_name()
-# welcome_player()
-# time.sleep(2)
-##
-##first_hand()
-### # time.sleep(2)  
-##stand_or_hit()
-##
-### ##print(f"Player hand: {player_hand}")
-### ##print(f"Length of deck is {len(deck_list)}")
-##second_hand()
-### ##print(f"Length of deck is {len(deck_list)}")
-### ##print(f"Player hand: {player_hand}")
-##
-##isBust(player_hand)
