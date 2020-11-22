@@ -103,17 +103,3 @@ def remove_randomCard(card_deck, discarted_deck):
 	print(discarted_name)
 
 
-# full_deck = generate_deck()
-
-# print(len(full_deck))
-
-# remove_randomCard(full_deck, discarted_carts)
-# remove_randomCard(full_deck, discarted_carts)
-# remove_randomCard(full_deck, discarted_carts)
-
-# print(len(full_deck))
-
-
-
-
-deck_dict = generate_deck_dict()
