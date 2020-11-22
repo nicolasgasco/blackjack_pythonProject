@@ -74,10 +74,23 @@ def stand_or_hit():
       print("You chose to hit.\n")
       return True
 
-def if_stand():
+def if_stand(card_hand):
    """Function to play second hand, when player decided to stand"""
-
-   print(f"Belzebù")
+   sum_hand = 0
+   for card in card_hand:
+      # 11 has precedence over 1 when the dealer plays
+      if card[2] == 1:
+         sum_hand += 11
+      else:
+         sum_hand += card[2]
+   card = [cardname_fromTuple(card_hand, card) for card in card_hand]
+   print(f"Dealer sum is {sum_hand}. He has {card}") 
+   if sum_hand >= 17:
+      #In this case stand
+      return False
+   else:
+      #In this case hit
+      return True
 
 def if_hit(player_hand):
    """Function to play second hand, when player can either receive another card or stand."""
@@ -156,4 +169,23 @@ def isBlackJack(hand_cards):
          print(f"Ouch! The dealer won!")
    else:
       return False
+##
+##def who_won(player, val1=1, dealer, val2=11):
+##   sum_hand1 = 0
+##   for card in player:
+##      if card[2] == 1:
+##         sum_hand1 += val1
+##      else:
+##         sum_hand1 += card[2]
+##
+##   sum_hand1 = 0
+##   for card in player:
+##      if card[2] == 1:
+##         sum_hand1 += val2
+##      else:
+##         sum_hand1 += card[2]
+
+      
+      
+      
 

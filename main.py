@@ -34,35 +34,41 @@ elif not isNatural(player_hand) and isNatural(dealer_hand):
 else:
     pass
 
+# This loop is for continuing asking for a new card
+loop = True
+while loop == True:
+    # Let's ask if they're standing or hitting
+    round2 = stand_or_hit()
+    
+    #Player chooses to stand
+    if not round2:
+        print(f"The dealer cover card is {cardname_fromTuple(dealer_hand, dealer_hand[1])}") 
+        # Let's check if dealer is standing or hitting
+        dealer_action = if_stand(dealer_hand)
+        # Dealer is hitting
+        if dealer_action:
+            print("Dealer is hitting")
+            break
+        # Dealer is standing
+        if not dealer_action:
+            print(f"Dealer is standing. He's sum is {dealer_action}")
+            break
+    
+    #Player chooses to hit
+    if round2:
+        if_hit(player_hand)
+        isBlackJack(player_hand)
 
-##
-##
-### This loop is for continuing asking for a new card
-##loop = True
-##while loop == True:
-##    # Let's ask if they're standing or hitting
-##    round2 = stand_or_hit()
-##    
-##    #Player chooses to stand
-##    if not round2:
-##        if_stand()
-##        break
-##    
-##    #Player chooses to hit
-##    if round2:
-##        if_hit(player_hand)
-##        isBlackJack(player_hand)
-##
-##        # Check if player is bust
-##        bust = isBust(player_hand)
-##        
-##        #if bust
-##        if bust:
-##            print("Game over.")
-##            print("Prepare. A new game will start...\n\n\n")
-##            break
-##        
-##        #if not bust
-##        elif not bust:
-##            print("The game goes on...")
-##            # Loops starts all over again
+        # Check if player is bust
+        bust = isBust(player_hand)
+        
+        #if bust
+        if bust:
+            print("Game over.")
+            print("Prepare. A new game will start...\n\n\n")
+            break
+        
+        #if not bust
+        elif not bust:
+            print("The game goes on...")
+            # Loops starts all over again
