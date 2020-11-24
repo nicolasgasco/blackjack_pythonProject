@@ -10,12 +10,12 @@ def welcome():
    user_name = user_name.strip().title()
    print(spaces)
    print(f"\nHi, {user_name}! Welcome to Python Blackjack. This is a simple game,"
-         " but it's a lot of fun. You don't need to place a bet to play.\n")
+         " but it's a lot of fun. You don't need to place a bet to play.")
    return user_name
 
 def enter_toContinue():
    """This is used in place of 'Press any key to continue'"""
-   input("Press Enter to continue... ")
+   input("Press Enter to  fig tree.continue... ")
    print(spaces)
 
 def first_hand(user_name, player_hand, dealer_hand, deck_list):
@@ -34,17 +34,20 @@ def first_hand(user_name, player_hand, dealer_hand, deck_list):
       deck_list.remove(card_dealer)
       dealer_hand.append(card_dealer)
 
-   print("Let's start a new game of Python Blackjack.\n")
+   print("Let's start a new game of Python Blackjack.")
    enter_toContinue()
 
    print(f"{user_name.title()}, you have been dealt..."
    f" {cardname_fromTuple(player_hand, player_hand[0])} and "
-   f"{cardname_fromTuple(player_hand, player_hand[1])}.\n")
-   
+   f"{cardname_fromTuple(player_hand, player_hand[1])}.")
    enter_toContinue()
 
+   if isNatural(player_hand):
+      print(f"You have 21! Let's see what the dealer has...")
+      enter_toContinue()
+
    print(f"The dealer has one covered card and a "
-   f"{cardname_fromTuple(dealer_hand, dealer_hand[0])}.\n")
+   f"{cardname_fromTuple(dealer_hand, dealer_hand[0])}.")
 
 
 def isNatural(card_hand):
@@ -60,7 +63,7 @@ def isNatural(card_hand):
 def stand_or_hit():
    """Function used to prompt the user either to stand or hit"""
     
-   user_input = input("You can either [s]tand or [h]it. Please type the corrisponding letter to play: ")
+   user_input = input("You can either [s]tand or [h]it. Please type the corresponding letter to play: ")
    while user_input != "s" and user_input != "h":
       print(spaces)
       print("\nPlease insert a valid letter.")
@@ -76,23 +79,68 @@ def stand_or_hit():
       print("You chose to hit.")
       return True
 
+def dealer_sum(dealer_hand):
+   """Function to calculate the dealer's sum applying special rules"""
+   sum_hand = 0
+   sum11 = 0
+   sum1 = 0
+   for card in dealer_hand:
+         if card[2] == 1:
+            sum11 += 11
+            sum1 += 1
+         else:
+            sum_hand += card[2]
 
+   # 11 always takes precedence
+   # If there is only one ace
+   if sum11 == 11:
+      if sum_hand + sum11 > 21:
+         sum_hand += sum1
+      else:
+         sum_hand += sum11
+      
+   # If there are are two aces
+   elif sum11 == 22:
+      if sum_hand + 11 > 21:
+         sum_hand += sum1
+      else:
+         sum_hand += 11
+         sum_hand += 1
+      
+   # If there are three aces
+   elif sum11 == 33:
+      if sum_hand + 11 > 21:
+         sum_hand += sum1
+      else:
+         sum_hand += 11
+         sum_hand += 2
+      
+   # If there are four aces
+   elif sum11 == 44:
+      if sum_hand + 11 > 21:
+         sum_hand += sum1
+      else:
+         sum_hand += 11
+         sum_hand += 3
+
+   return sum_hand
+
+def game_over():
+   """Simple function to make changing the Game Over text easy"""
+   print("GAME OVER!")
+   enter_toContinue()
+   
 def if_stand(dealer_hand):
    """Function to play second hand, when player decided to stand"""
-   sum_hand = 0
-   for card in dealer_hand:
-      # 11 has precedence over 1 when the dealer plays
-      if card[2] == 1:
-         sum_hand += 11
-      else:
-         sum_hand += card[2]
+   # Sum is already calculated precisely
+   sum_hand = dealer_sum(dealer_hand)
 
-   # We have to clear the cases where 11 generates bust
-   if sum_hand > 21:
-      sum_hand -= 10
-
-   card = [cardname_fromTuple(dealer_hand, card) for card in dealer_hand]
-   print(f"Dealer sum is {sum_hand}. He has {card}") 
+   cards = [cardname_fromTuple(dealer_hand, card) for card in dealer_hand]
+   print(f"The dealer's cards are:")
+   for card in cards:
+      print(f"\t{card}")
+   print("\n")
+   print(f"The dealer current sum is {sum_hand}.") 
    if sum_hand >= 17:
       #In this case stand
       return False
@@ -125,11 +173,11 @@ def stand_whoWon (dealer_hand, player_hand):
          
   #CHANGE SUM TO INCLUDE 1       
    if sum_player > sum_dealer:
-      print("Your cards are higher than the dealer's. Congratulations, you won!")
+      print(f"Your cards ({sum_player}) are higher than the dealer's ({sum_dealer}). Congratulations, YOU WON!")
    elif sum_player == sum_dealer:
-      print("You and the dealer have the same total value. It's a tie!")
+      print(f"You and the dealer have the same total value ({sum_player}). IT'S A TIE!")
    elif sum_player < sum_dealer:
-      print("Your cards are lower than the dealer's. You lost!")
+      print(f"Your cards ({sum_player}) are lower than the dealer's ({sum_dealer}). YOU LOST!")
 
 def dealer_card(dealer_hand, deck_list):
    """Function to give one random card to the dealer"""
@@ -137,30 +185,18 @@ def dealer_card(dealer_hand, deck_list):
    card_dealer = random.choice(deck_list)
    deck_list.remove(card_dealer)
    dealer_hand.append(card_dealer)
+   return card_dealer
 
 
 def isBust_dealer(dealer_hand):
    """"Function to determine if dealer is bust with current hand"""
-   sum_dealer = 0
-   sum1 = 0
-   sum11 = 0
-   for card in dealer_hand:
-      if card[2] == 1:
-         sum1 += 1
-         sum11 += 11
-      else:
-         sum_dealer += card[2]
-   
-   total1 = sum_dealer + sum1
-   total11 = sum_dealer + sum11
-   if total11 > 21 and total1 > 21:
-      print("Dealer is bust")
+   # Sum is already calculed precisely
+   sum = dealer_sum(dealer_hand)
+
+   if sum > 21:
       return True
-   elif total11 > 21 and total1 < 21:
-      print("Dealer is not bust")
-      return False
    else:
-      print("Dealer is not bust")
+      return False
    
 
 def if_hit(player_hand, deck_list):
