@@ -1,16 +1,22 @@
 import random
 import time
 from deck import *
+spaces = "\n\n\n\n\n"
 
 def welcome():
    user_name = input("Hi! Before we start, write your name here: ")
    while user_name == "" or user_name == " ":
       user_name = input("Please insert a valid name: ")
    user_name = user_name.strip().title()
+   print(spaces)
    print(f"\nHi, {user_name}! Welcome to Python Blackjack. This is a simple game,"
          " but it's a lot of fun. You don't need to place a bet to play.\n")
    return user_name
-      
+
+def enter_toContinue():
+   """This is used in place of 'Press any key to continue'"""
+   input("Press Enter to continue... ")
+   print(spaces)
 
 def first_hand(user_name, player_hand, dealer_hand, deck_list):
    """Function to deal the first hand of a Blackjack round.
@@ -21,24 +27,21 @@ def first_hand(user_name, player_hand, dealer_hand, deck_list):
       card_user = random.choice(deck_list)
       deck_list.remove(card_user)
       player_hand.append(card_user)
-##      # Adding to played cards just in case it's useful in the future
-##      played_cards.append(card_user)
 
 
       # One random card to the dealer
       card_dealer = random.choice(deck_list)
       deck_list.remove(card_dealer)
       dealer_hand.append(card_dealer)
-##      # Adding to played cards just in case it's useful in the future
-##      played_cards.append(card_dealer)
 
    print("Let's start a new game of Python Blackjack.\n")
+   enter_toContinue()
 
    print(f"{user_name.title()}, you have been dealt..."
    f" {cardname_fromTuple(player_hand, player_hand[0])} and "
    f"{cardname_fromTuple(player_hand, player_hand[1])}.\n")
-
-   # time.sleep(2)
+   
+   enter_toContinue()
 
    print(f"The dealer has one covered card and a "
    f"{cardname_fromTuple(dealer_hand, dealer_hand[0])}.\n")
@@ -59,14 +62,20 @@ def stand_or_hit():
     
    user_input = input("You can either [s]tand or [h]it. Please type the corrisponding letter to play: ")
    while user_input != "s" and user_input != "h":
+      print(spaces)
       print("\nPlease insert a valid letter.")
-      user_input = input("You can either [s]tand or [h]it. Type your answer: " + "\n")
+      user_input = input("You can either [s]tand or [h]it. Type your answer: ")
+      
    if user_input.lower() == "s":
-      print("You chose to stand.\n")
+      print(spaces)
+      print("You chose to stand.")
+      
       return False
    elif user_input.lower() == "h":
-      print("You chose to hit.\n")
+      print(spaces)
+      print("You chose to hit.")
       return True
+
 
 def if_stand(dealer_hand):
    """Function to play second hand, when player decided to stand"""
@@ -90,6 +99,7 @@ def if_stand(dealer_hand):
    else:
       #In this case hit
       return True
+
 
 def stand_whoWon (dealer_hand, player_hand):
    """Function to determine who won when both the dealer and the player are standing (two cards)"""
@@ -127,8 +137,7 @@ def dealer_card(dealer_hand, deck_list):
    card_dealer = random.choice(deck_list)
    deck_list.remove(card_dealer)
    dealer_hand.append(card_dealer)
-##   # Adding to played cards just in case it's useful in the future
-##   played_cards.append(card_dealer)
+
 
 def isBust_dealer(dealer_hand):
    """"Function to determine if dealer is bust with current hand"""
@@ -152,8 +161,6 @@ def isBust_dealer(dealer_hand):
       return False
    else:
       print("Dealer is not bust")
-      
-         
    
 
 def if_hit(player_hand, deck_list):
@@ -163,49 +170,52 @@ def if_hit(player_hand, deck_list):
    player_hand.append(card_user)
 ##   # Just in case I need it in the future
 ##   played_cards.append(card_user)
-   print(f"You have received a {cardname_fromTuple(player_hand, player_hand[-1])}.\n")
+   print(f"You have received a {cardname_fromTuple(player_hand, player_hand[-1])}.")
 
 
 def isBust(hand_cards):
+   """Function to check if the current hand exceeds the value of 21"""
       # First I check if there are some 1s
-      total_value = 0
-      value_1 = 0
-      value_11 = 0
-      for suit, number, value in hand_cards:
-         # Case 1: there are some aces with double values
-         if value == 1:
-            # Let's put all the extra values asides
-            value_1 += 1
-            value_11 += 11
-         # Case 2: there are no aces
-         else:
-            total_value += value
+   total_value = 0
+   value_1 = 0
+   value_11 = 0
+   for suit, number, value in hand_cards:
+      # Case 1: there are some aces with double values
+      if value == 1:
+         # Let's put all the extra values asides
+         value_1 += 1
+         value_11 += 11
+      # Case 2: there are no aces
+      else:
+         total_value += value
 
-      total_value1 = total_value + value_1
-      total_value11 = total_value + value_11
-      # This is the regular case, without double values
-      if value_1 == 0 and value_11 == 0:
-         if total_value > 21:
-            print("BUST!")
-            print(f"Bust_norm. Your sum is {total_value}. BUST!")
-            return True
-         else:
-            print(f"Nobust_norm. You're sum is {total_value}.")
-            return False
-      # This is when double values are present
-      elif value_1 > 0 and value_11 > 0:
-         if total_value11 <= 21:
-            print(f"NobustDou1. Your sum is either {total_value1} or {total_value11}.")
-            return False
-         elif total_value11 > 21 and total_value1 > 21:
-            print(f"Bustdou2. BUST! Your sum is {total_value1}.")
-            return True
-         elif total_value11 > 21 and total_value1 < 21:
-            print(f"NobusDou2. You're sum is {total_value1}.")
-            return False
-   
+   total_value1 = total_value + value_1
+   total_value11 = total_value + value_11
+   # This is the regular case, without double values
+   if value_1 == 0 and value_11 == 0:
+      if total_value > 21:
+         print(f"With the new card, your sum is {total_value}.")
+         print("BUST!")
+         return True
+      else:
+         print(f"With the new card, you're sum is {total_value}.")
+         return False
+   # This is when double values are present
+   elif value_1 > 0 and value_11 > 0:
+      if total_value11 <= 21:
+         print(f"With the new card, your sum is either {total_value1} or {total_value11}.")
+         return False
+      elif total_value11 > 21 and total_value1 > 21:
+         print(f"With the new card, your sum is {total_value1}.")
+         print("BUST!")
+         return True
+      elif total_value11 > 21 and total_value1 < 21:
+         print(f"With the new card, your sum is {total_value1}.")
+         return False
+      
 
-def isBlackJack(hand_cards):
+def isBlackJack(hand_cards, player_hand, dealer_hand):
+   """Function to see if the hand of the makes a Blackjack"""
    total_value = 0
    value_1 = 0
    value_11 = 0
@@ -223,8 +233,13 @@ def isBlackJack(hand_cards):
       print("Blackjack!")
       if hand_cards == player_hand:
          print(f"Congratulations, you won!")
+         print(spaces)
+         return True
       elif hand_cards == dealer_hand:
          print(f"Ouch! The dealer won!")
+         print("GAME OVER!")
+         print(spaces)
+         return True
    else:
       return False
 

@@ -26,6 +26,7 @@ card_suits = {
 discarted_carts = []
 
 def generate_deck_dict():
+    """Function to generate a full deck of cards in form of a dictionary"""
     list = []
     # This list first to create the dictionary
     for num in range(0,4):
@@ -70,9 +71,6 @@ def generate_deck_list():
 	return list
 
 
-
-
-
 def cardname_fromIndex(list, index):
 	"""Funcion to print a card name when list name and index are known.
 	Asks for list name and list index."""
@@ -81,8 +79,9 @@ def cardname_fromIndex(list, index):
 	return f"{number} of {suit}"
 	
 def print_deck(deck_name):
-	for i in range(len(deck_name)):
-		cardname_fromIndex(deck_name, i)
+    """Function to print a whole deck card by card"""
+    for i in range(len(deck_name)):
+        cardname_fromIndex(deck_name, i)
 
 
 def cardname_fromTuple(list, name):
@@ -101,5 +100,3 @@ def remove_randomCard(card_deck, discarted_deck):
 	discarted_deck.append(random_card)
 	discarted_name = cardname_fromTuple(discarted_deck, random_card)
 	print(discarted_name)
-
-
