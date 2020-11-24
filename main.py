@@ -13,7 +13,6 @@ player_name = welcome()
 enter_toContinue()
 
 # Biggest loop for the actual gaming part
-big_loop = True
 while True:
     # If not declared here, they get summed game after game
     deck_list = generate_deck_list()
@@ -121,38 +120,57 @@ while True:
 
             # Check if player is bust
             bust = isBust(player_hand)
+            enter_toContinue()
             
             #if bust
             if bust:
-                print("BUST!")
                 # SEE IF DEALER TOO BUST OR NOT
                 # Let's check if dealer is standing or hitting
                 dealer_loop2 = True
                 while dealer_loop2 == True:
                     dealer_action = if_stand(dealer_hand)
-                    
+                    enter_toContinue()
+
                     # Dealer is hitting
                     if dealer_action:
-                        print("Dealer is hitting")
+                        print("The dealer is hitting and will receive another card.")
+                        enter_toContinue()
+                        
                         # Dealer receives one more card
-                        dealer_card(dealer_hand, deck_list)
+                        new_card = dealer_card(dealer_hand, deck_list)
+                        print(f"The dealer received {cardname_fromTuple(dealer_hand, new_card)}.")
+                        enter_toContinue()
+                        
                         # Let's check if he's bust
                         dealer_bust = isBust_dealer(dealer_hand)
-                        
+
                         # dealer is bust
                         if dealer_bust:
-                            print("BUST! Still, the dealer won!")
-                            print("\n\n\n\n\n\n\n\n\n\n")
-                            dealer_loop2 = False
+                            print(f"The dealer's is bust! ({dealer_sum(dealer_hand)}) You still LOSE!")
+                            enter_toContinue()
+                            
+                            game_over()
+                            
                             loop = False
+                            dealer_loop2 = False
 
                         #dealer is not bust
                         elif not dealer_bust:
-                            print("You're bust and the dealer not. You lost!")
-                            
-                            game_over()
-                            dealer_loop2 = False
-                            loop = False
+                            continue
+                            # hit again
+                
+                # Dealer is standing
+                    elif not dealer_action:
+                        print(f"Dealer is standing and won't receive another card.")
+                        enter_toContinue()
+                        
+                        print("You're bust and the dealer not. You lost!")
+                        enter_toContinue()
+                        
+                        game_over()
+                        loop = False
+                        dealer_loop2 = False
+                    
             
             #if not bust
             elif not bust:

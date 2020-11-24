@@ -15,7 +15,7 @@ def welcome():
 
 def enter_toContinue():
    """This is used in place of 'Press any key to continue'"""
-   input("Press Enter to  fig tree.continue... ")
+   input("Press Enter to continue... ")
    print(spaces)
 
 def first_hand(user_name, player_hand, dealer_hand, deck_list):
