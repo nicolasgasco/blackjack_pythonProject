@@ -19,8 +19,7 @@ while True:
     played_cards = [] 
     player_hand = []
     dealer_hand = []
-    stand = 0
-    hit = 0
+
     # Let's deal cards
     first_hand(player_name, player_hand, dealer_hand, deck_list)
     enter_toContinue()
@@ -61,7 +60,7 @@ while True:
             # Let's check if dealer is standing or hitting
             dealer_loop = True
             while dealer_loop == True:
-                dealer_action = if_stand(dealer_hand)
+                dealer_action = if_stand(dealer_hand, player_hand)
                 enter_toContinue()
 
                 # Dealer is hitting
@@ -110,16 +109,16 @@ while True:
             if_hit(player_hand, deck_list)
             enter_toContinue()
             
-            
-            black_jack = isBlackJack(player_hand, player_hand, dealer_hand)
+            # I HAVE TO CHANGE THIS
+            black_jack = is_21(player_hand, player_hand, dealer_hand)
             if black_jack:
-                break
-                loop == False
+                enter_toContinue()
+                continue
             else:
                 pass
 
             # Check if player is bust
-            bust = isBust(player_hand)
+            bust = isBust_player(player_hand, player_hand, dealer_hand)
             enter_toContinue()
             
             #if bust
@@ -128,7 +127,7 @@ while True:
                 # Let's check if dealer is standing or hitting
                 dealer_loop2 = True
                 while dealer_loop2 == True:
-                    dealer_action = if_stand(dealer_hand)
+                    dealer_action = if_stand(dealer_hand, player_hand)
                     enter_toContinue()
 
                     # Dealer is hitting
@@ -174,6 +173,7 @@ while True:
             
             #if not bust
             elif not bust:
-                print("The game goes on...")
-                enter_toContinue()
+                # print("The game goes on...")
+                # enter_toContinue()
+                pass
                 # Loops starts all over again
