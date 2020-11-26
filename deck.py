@@ -26,7 +26,7 @@ card_suits = {
 discarted_carts = []
 
 def generate_deck_dict():
-    """Function to generate a full deck of cards in form of a dictionary"""
+    """Function to generate a full deck of cards in form of a dictionary. Currently not used"""
     list = []
     # This list first to create the dictionary
     for num in range(0,4):
@@ -53,22 +53,22 @@ def generate_deck_dict():
 
 
 def generate_deck_list():
-	"""Function to generate a whole deck of cards as list"""
-	list = []
-	for num in range(0,4):
-		for i in range(1, 14):
-			suit = num
-			number = i
-			value = 0 
-			if i == 1:
-				# This used to be a tuple before
-				value = (1)
-			elif i > 10:
-				value = 10
-			else:
-				value = i
-			list.append((suit, number, value))
-	return list
+    """Function to generate a whole deck of cards as list"""
+    list = []
+    for num in range(0,4):
+        for i in range(1, 14):
+            suit = num
+            number = i
+            value = 0 
+            if i == 1:
+                # I'm assigning only 1 for now, it will become 11 later
+                value = (1)
+            elif i > 10:
+                value = 10
+            else:
+                value = i
+            list.append((suit, number, value))
+    return list
 
 
 def cardname_fromIndex(list, index):
@@ -77,9 +77,10 @@ def cardname_fromIndex(list, index):
 	suit = card_suits.get((list[index])[0])
 	number = card_names.get((list[index])[1])
 	return f"{number} of {suit}"
+
 	
 def print_deck(deck_name):
-    """Function to print a whole deck card by card"""
+    """Function to print a whole deck card by card. Mostly used during development."""
     for i in range(len(deck_name)):
         cardname_fromIndex(deck_name, i)
 
@@ -87,7 +88,6 @@ def print_deck(deck_name):
 def cardname_fromTuple(list, name):
 	"""Function to print a card name when only the values are known.
 	Asks for list name and card object name."""
-
 	result = cardname_fromIndex(list, list.index(name))
 	return result
 

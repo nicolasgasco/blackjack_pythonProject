@@ -1,40 +1,40 @@
 import random
 import time
+import re
 from deck import *
+
+# This is global in case I need to change it quickly
 spaces = "\n\n\n\n\n"
 
 def welcome():
    """Function used to welcome player and get their name"""
    user_name = input("Hi! Before we start, write your name here: ")
-   while user_name == "" or user_name == " ":
-      user_name = input("Please insert a valid name: ")
+   pattern = re.compile(r"^[^a-zA-z]*$")
+   while pattern.match(user_name):
+      user_name = input("\nPlease insert a valid name: ")
    user_name = user_name.strip().title()
+   
    print(spaces)
    print(f"\nHi, {user_name}! Welcome to Python Blackjack. This is a simple game,"
          " but it's a lot of fun. You don't need to place a bet to play.")
    return user_name
 
 
-def enter_toContinue():
+def enter_to_continue():
    """This is used in place of 'Press any key to continue'"""
    input("Press Enter to continue... ")
    print(spaces)
 
 
-def isNatural(card_hand):
+def is_natural(card_hand):
     """Function to check if two first cards are a natural (10 plus ace)"""
-    if (card_hand[0])[2] == 1 and (card_hand[1])[2] == 10:
-        return True
-    elif (card_hand[0])[2] == 10 and (card_hand[1])[2] == 1:
+    if (card_hand[0])[2] + (card_hand[1])[2] == 11:
         return True
     else:
         return False
 
-
-def first_hand(user_name, player_hand, dealer_hand, deck_list):
-   """Function to deal the first hand of a Blackjack round.
-   Player gets dealt two cards face up, dealer only one face up."""
-
+def deal_cards(player_hand, dealer_hand, deck_list):
+   """Function to deal two cards both to the player and the dealer"""
    for i in range(2):
    # One random card to the player
       card_user = random.choice(deck_list)
@@ -47,9 +47,10 @@ def first_hand(user_name, player_hand, dealer_hand, deck_list):
       deck_list.remove(card_dealer)
       dealer_hand.append(card_dealer)
 
-   print("Let's start a new game of Python Blackjack.")
-   enter_toContinue()
 
+def print_first_hand(user_name, player_hand, dealer_hand):
+   """Function to print the first hand dealt in the game"""
+   
    print(f"{user_name.title()}, you have been dealt..."
    f" {cardname_fromTuple(player_hand, player_hand[0])} and "
    f"{cardname_fromTuple(player_hand, player_hand[1])}.")
@@ -99,6 +100,7 @@ def if_stand(dealer_hand, player_hand):
       #In this case hit
       return True
 
+
 def dealer_card(dealer_hand, deck_list):
    """Function to give one random card to the dealer"""
    # One random card to the dealer
@@ -108,7 +110,7 @@ def dealer_card(dealer_hand, deck_list):
    return card_dealer
 
 
-def isBust_dealer(dealer_hand):
+def is_bust_dealer(dealer_hand):
    """"Function to determine if dealer is bust with current hand"""
    # Sum is already calculed precisely
    sum = dealer_sum(dealer_hand)
@@ -119,7 +121,7 @@ def isBust_dealer(dealer_hand):
       return False
 
 
-def stand_whoWon (dealer_hand, player_hand):
+def stand_who_won (dealer_hand, player_hand):
    """Function to determine who won when both the dealer and the player are standing (two cards)"""
    sum_dealer = dealer_sum(dealer_hand)
 
@@ -187,7 +189,7 @@ def print_hand(hand_cards, dealer_hand, player_hand):
       print(f"\t{card}")
 
 
-def isBust_player(hand_cards, player_hand, dealer_hand):
+def is_bust_player(hand_cards, player_hand, dealer_hand):
    """Function to check if the current hand exceeds the value of 21"""
       # First I check if there are some 1s
    total_value = 0
@@ -233,49 +235,36 @@ def isBust_player(hand_cards, player_hand, dealer_hand):
          return False
 
 
-def is_21(hand_cards, player_hand, dealer_hand):
-   """Function to see if the hand of the makes a Blackjack"""
-   total_value = 0
-   value_1 = 0
-   value_11 = 0
-   for suit, number, value in hand_cards:
-      # Case 1: there are some aces with double values
-      if value == 1:
-         # Let's put all the extra values asides
-         value_1 += 1
-         value_11 += 11
-      # Case 2: there are no aces
-      else:
-         total_value += value
-
-   if total_value == 21 or total_value + value_1 == 21 or total_value + value_11 == 21:
-      if hand_cards == player_hand:
-         print("Your sum is 21!")
-         return True
-      
-      elif hand_cards == dealer_hand:
-         print("The dealer's sum is 21!")
-         return True
-      
-      else:
-         return False
-   
+##def is_21(hand_cards, player_hand, dealer_hand):
+##   """Function to see if the hand of the makes a Blackjack"""
+##   total_value = 0
+##   value_1 = 0
+##   value_11 = 0
+##   for suit, number, value in hand_cards:
+##      # Case 1: there are some aces with double values
+##      if value == 1:
+##         # Let's put all the extra values asides
+##         value_1 += 1
+##         value_11 += 11
+##      # Case 2: there are no aces
+##      else:
+##         total_value += value
+##
 ##   if total_value == 21 or total_value + value_1 == 21 or total_value + value_11 == 21:
-##      print("21!")
 ##      if hand_cards == player_hand:
-##         print(f"Congratulations, you won!")
-##         print(spaces)
+##         print("Your sum is 21!")
 ##         return True
+##      
 ##      elif hand_cards == dealer_hand:
-##         print(f"Ouch! The dealer won!")
-##         print("GAME OVER!")
-##         print(spaces)
+##         print("The dealer's sum is 21!")
 ##         return True
-##   else:
-##      return False
+##      
+##      else:
+##         return False
+
 
 def game_over():
-   """Simple function to make changing the Game Over text easy"""
+   """Simple function to make changing the Game Over text easily"""
    print("GAME OVER!")
    enter_toContinue()
       
