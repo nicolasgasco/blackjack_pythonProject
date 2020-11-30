@@ -1,7 +1,8 @@
 import random
 import time
 import re
-from deck import *
+
+from deck import generate_deck_list, cardname_from_index, cardname_from_tuple
 
 # This is global in case I need to change it quickly
 spaces = "\n\n\n\n\n"
@@ -52,8 +53,8 @@ def print_first_hand(user_name, player_hand, dealer_hand):
    """Function to print the first hand dealt in the game"""
    
    print(f"{user_name.title()}, you have been dealt..."
-   f" {cardname_fromTuple(player_hand, player_hand[0])} and "
-   f"{cardname_fromTuple(player_hand, player_hand[1])}.")
+   f" {cardname_from_tuple(player_hand, player_hand[0])} and "
+   f"{cardname_from_tuple(player_hand, player_hand[1])}.")
    enter_toContinue()
 
    if isNatural(player_hand):
@@ -61,7 +62,7 @@ def print_first_hand(user_name, player_hand, dealer_hand):
       enter_toContinue()
 
    print(f"The dealer has one covered card and a "
-   f"{cardname_fromTuple(dealer_hand, dealer_hand[0])}.")
+   f"{cardname_from_tuple(dealer_hand, dealer_hand[0])}.")
 
 
 def stand_or_hit():
@@ -142,7 +143,7 @@ def if_hit(player_hand, deck_list):
    card_user = random.choice(deck_list)
    deck_list.remove(card_user)
    player_hand.append(card_user)
-   print(f"You have received a {cardname_fromTuple(player_hand, player_hand[-1])}.")
+   print(f"You have received a {cardname_from_tuple(player_hand, player_hand[-1])}.")
 
 
 def dealer_sum(dealer_hand):
@@ -182,7 +183,7 @@ def print_hand(hand_cards, dealer_hand, player_hand):
    else:
       actor = "current user"
       
-   cards = [cardname_fromTuple(hand_cards, card) for card in hand_cards]
+   cards = [cardname_from_tuple(hand_cards, card) for card in hand_cards]
    
    print(f"The {actor}'s cards are:")
    for card in cards:

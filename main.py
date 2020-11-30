@@ -1,8 +1,10 @@
 import random
 import time
-from actions import *
-from deck import *
-from splash_screen import *
+
+from deck import generate_deck_list, cardname_from_index, cardname_from_tuple
+from actions import welcome, enter_to_continue, is_natural, deal_cards, print_first_hand, stand_or_hit
+from actions import dealer_card, is_bust_dealer, stand_who_won, if_hit, dealer_sum, print_hand, is_bust_player, game_over
+from splash_screen import splash_screen
 
 
 # Used to print the game's logo

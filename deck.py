@@ -23,7 +23,6 @@ card_suits = {
 	3: "Spades"
 	}
 
-discarted_carts = []
 
 def generate_deck_dict():
     """Function to generate a full deck of cards in form of a dictionary. Currently not used"""
@@ -45,7 +44,7 @@ def generate_deck_dict():
     dict = {}
     for card in list:
         # Use another function to generate all the keys
-        # dict[cardname_fromTuple(list, card)] = card
+        # dict[cardname_from_tuple(list, card)] = card
         suit = card_suits.get(card[0])
         number = card_names.get(card[1])
         dict[f"{number} of {suit}"] = card
@@ -71,7 +70,7 @@ def generate_deck_list():
     return list
 
 
-def cardname_fromIndex(list, index):
+def cardname_from_index(list, index):
 	"""Funcion to print a card name when list name and index are known.
 	Asks for list name and list index."""
 	suit = card_suits.get((list[index])[0])
@@ -82,21 +81,21 @@ def cardname_fromIndex(list, index):
 def print_deck(deck_name):
     """Function to print a whole deck card by card. Mostly used during development."""
     for i in range(len(deck_name)):
-        cardname_fromIndex(deck_name, i)
+        cardname_from_index(deck_name, i)
 
 
-def cardname_fromTuple(list, name):
+def cardname_from_tuple(list, name):
 	"""Function to print a card name when only the values are known.
 	Asks for list name and card object name."""
-	result = cardname_fromIndex(list, list.index(name))
+	result = cardname_from_index(list, list.index(name))
 	return result
 
 
-def remove_randomCard(card_deck, discarted_deck):
+def remove_random_card(card_deck, discarted_deck):
 	"""Function to remove one random cart from the deck and print it"""
 
 	random_card = random.choice(card_deck)
 	card_deck.remove(random_card)
 	discarted_deck.append(random_card)
-	discarted_name = cardname_fromTuple(discarted_deck, random_card)
+	discarted_name = cardname_from_tuple(discarted_deck, random_card)
 	print(discarted_name)
