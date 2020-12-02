@@ -236,32 +236,32 @@ def is_bust_player(hand_cards, player_hand, dealer_hand):
          return False
 
 
-##def is_21(hand_cards, player_hand, dealer_hand):
-##   """Function to see if the hand of the makes a Blackjack"""
-##   total_value = 0
-##   value_1 = 0
-##   value_11 = 0
-##   for suit, number, value in hand_cards:
-##      # Case 1: there are some aces with double values
-##      if value == 1:
-##         # Let's put all the extra values asides
-##         value_1 += 1
-##         value_11 += 11
-##      # Case 2: there are no aces
-##      else:
-##         total_value += value
-##
-##   if total_value == 21 or total_value + value_1 == 21 or total_value + value_11 == 21:
-##      if hand_cards == player_hand:
-##         print("Your sum is 21!")
-##         return True
-##      
-##      elif hand_cards == dealer_hand:
-##         print("The dealer's sum is 21!")
-##         return True
-##      
-##      else:
-##         return False
+def is_21(hand_cards, player_hand, dealer_hand):
+   """Function to see if the hand of the makes a Blackjack"""
+   total_value = 0
+   value_1 = 0
+   value_11 = 0
+   for suit, number, value in hand_cards:
+      # Case 1: there are some aces with double values
+      if value == 1:
+         # Let's put all the extra values asides
+         value_1 += 1
+         value_11 += 11
+      # Case 2: there are no aces
+      else:
+         total_value += value
+
+   if total_value == 21 or total_value + value_1 == 21 or total_value + value_11 == 21:
+      if hand_cards == player_hand:
+         print("Your sum is 21!")
+         return True
+      
+      elif hand_cards == dealer_hand:
+         print("The dealer's sum is 21!")
+         return True
+      
+      else:
+         return False
 
 
 def game_over():
