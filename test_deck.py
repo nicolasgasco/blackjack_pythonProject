@@ -29,7 +29,6 @@ class TestCardNameFromIndex(unittest.TestCase):
     """Test for cardname_from_index. I'm testing for first and last card of every suit"""
 
     def test_card_name_from_index_first_of_hearts(self):
-        """Do I always get the right result?"""
         cardname = cardname_from_index(deck_test, 0)
         self.assertEqual(cardname, "Ace of Hearts")
 
@@ -38,7 +37,6 @@ class TestCardNameFromIndex(unittest.TestCase):
         self.assertEqual(cardname, "King of Hearts")
 
     def test_card_name_from_index_first_of_diamonds(self):
-        """Do I always get the right result?"""
         cardname = cardname_from_index(deck_test, 13)
         self.assertEqual(cardname, "Ace of Diamonds")
 
@@ -47,7 +45,6 @@ class TestCardNameFromIndex(unittest.TestCase):
         self.assertEqual(cardname, "King of Diamonds")
 
     def test_card_name_from_index_first_of_clubs(self):
-        """Do I always get the right result?"""
         cardname = cardname_from_index(deck_test, 26)
         self.assertEqual(cardname, "Ace of Clubs")
 
@@ -56,7 +53,6 @@ class TestCardNameFromIndex(unittest.TestCase):
         self.assertEqual(cardname, "King of Clubs")
 
     def test_card_name_from_index_first_of_spades(self):
-        """Do I always get the right result?"""
         cardname = cardname_from_index(deck_test, 39)
         self.assertEqual(cardname, "Ace of Spades")
 
@@ -106,3 +102,4 @@ class TestCardNameFromIndex(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+

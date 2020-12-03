@@ -7,18 +7,21 @@ from deck import generate_deck_list, cardname_from_index, cardname_from_tuple
 # This is global in case I need to change it quickly
 spaces = "\n\n\n\n\n"
 
-def welcome():
-   """Function used to welcome player and get their name"""
-   user_name = input("Hi! Before we start, write your name here: ")
+def get_username():
+   """Function used to get the player's name"""
+   username = input("Hi! Before we start, write your name here: ")
    pattern = re.compile(r"^[^a-zA-z]*$")
-   while pattern.match(user_name):
+   while pattern.match(username):
       user_name = input("\nPlease insert a valid name: ")
-   user_name = user_name.strip().title()
-   
-   print(spaces)
-   print(f"\nHi, {user_name}! Welcome to Python Blackjack. This is a simple game,"
+   user_name = username.strip().title()
+   return username
+
+
+def greet_user(username):
+   """Function to greet the user"""
+
+   print(f"\nHi, {username}! Welcome to Python Blackjack. This is a simple game,"
          " but it's a lot of fun. You don't need to place a bet to play.")
-   return user_name
 
 
 def enter_to_continue():

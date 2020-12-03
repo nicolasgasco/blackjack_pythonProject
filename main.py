@@ -2,7 +2,7 @@ import random
 import time
 
 from deck import generate_deck_list, cardname_from_index, cardname_from_tuple
-from actions import welcome, enter_to_continue, is_natural, deal_cards, print_first_hand, stand_or_hit
+from actions import get_username, greet_user, enter_to_continue, is_natural, deal_cards, print_first_hand, stand_or_hit
 from actions import dealer_card, is_bust_dealer, stand_who_won, if_hit, dealer_sum, print_hand, is_bust_player, game_over
 from splash_screen import splash_screen
 
@@ -11,7 +11,9 @@ from splash_screen import splash_screen
 splash_screen()
 
 # Let's welcome the player
-player_name = welcome()
+player_name = get_username()
+print("\n\n\n\n\n")
+greet_user(player_name)
 enter_to_continue()
 
 # Biggest loop for the actual gaming part
