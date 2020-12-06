@@ -12,8 +12,8 @@ def get_username():
    username = input("Hi! Before we start, write your name here: ")
    pattern = re.compile(r"^[^a-zA-z]*$")
    while pattern.match(username):
-      user_name = input("\nPlease insert a valid name: ")
-   user_name = username.strip().title()
+      username = input("\nPlease insert a valid name: ")
+   username = username.strip().title()
    return username
 
 
